@@ -1,0 +1,65 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+*.egg
+.venv/
+venv/
+ENV/
+env/
+
+# Virtual environments
+venv/
+env/
+.venv/
+.env
+
+# ML / model artifacts
+models/
+*.pkl
+*.h5
+*.joblib
+*.onnx
+*.pb
+
+# Data
+*.csv
+*.xlsx
+data/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Tooling / local agent state
+.freebuff/
+
+# JavaScript
+node_modules/
+package-lock.json
+/freebuff-sites-build/

@@ -1,0 +1,13 @@
+# ML & Data
+numpy>=1.24.0
+pandas>=2.0.0
+scikit-learn>=1.3.0
+xgboost>=2.0.0
+scipy>=1.11.0
+
+# Web Server
+uvicorn>=0.23.0
+fastapi>=0.104.0
+
+# Training dependencies
+flask>=2.3.0  # optional, for legacy Flask variants

@@ -1,2 +1,24 @@
-# Auto detect text files and perform LF normalization
-* text=auto
+# Normalize line endings for all text files in the repository.
+# Files stay LF in the repo; Windows checkouts are converted to CRLF locally.
+* text=auto eol=lf
+
+# Explicit text types
+*.py      text eol=lf
+*.js      text eol=lf
+*.css     text eol=lf
+*.html    text eol=lf
+*.md      text eol=lf
+*.txt     text eol=lf
+*.toml    text eol=lf
+*.yml     text eol=lf
+*.yaml    text eol=lf
+Dockerfile text eol=lf
+
+# Binary artifacts must never be line-ending converted
+*.pkl     binary
+*.joblib  binary
+*.onnx    binary
+*.png     binary
+*.jpg     binary
+*.webp    binary
+*.pdf     binary

@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="YieldSage — ML-based crop yield prediction portal for young farmers and hackathon judges." />
+  <meta name="theme-color" content="#11101B" />
+  <title>YieldSage — Predict your harvest before you plant</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script>document.documentElement.classList.add('js');</script>
+</head>
+<body>
+
+  <!-- ============================== Floating navigation ============================== -->
+  <nav class="nav">
+    <div class="nav-inner">
+      <a class="mark" href="#" aria-label="YieldSage home">
+        <span class="mark-symbol" aria-hidden="true">🌱</span>
+        YieldSage
+      </a>
+      <ul class="nav-links" aria-label="Main navigation">
+        <li><a href="#how-it-works">How it works</a></li>
+        <li><a href="#models">Models</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#docs">Docs</a></li>
+      </ul>
+      <div class="nav-utils">
+        <button class="nav-lang" aria-label="Language">EN</button>
+        <a class="nav-signin" href="#">Sign in</a>
+        <a class="nav-cta" href="#predict">Start free</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ============================== 1. Hero ============================== -->
+  <section class="hero" id="hero">
+    <div class="container hero-inner">
+      <div class="hero-copy">
+        <p class="eyebrow">
+          <span class="dot" aria-hidden="true" style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--green);"></span>
+          ML · Smart Agriculture
+        </p>
+        <h1 class="headline">
+          Know your harvest<br />
+          before you plant.<br />
+          YieldSage forecasts crop yield
+        </h1>
+        <p class="lede">
+          Turn weather, soil and field conditions into a defensible yield forecast —
+          ensemble ML models, an open API, and no black boxes.
+        </p>
+        <div class="hero-ctas">
+          <a class="btn-primary" href="#predict">Get a prediction <span aria-hidden="true">▸</span></a>
+          <a class="btn-secondary" href="#docs">View docs</a>
+        </div>
+        <ul class="proof" aria-label="Key figures">
+          <li>R² up to 0.94</li>
+          <li>4 models compared</li>
+          <li>12 input features</li>
+        </ul>
+      </div>
+      <div class="hero-art">
+        <div class="mockup-frame">
+          <div class="mockup-screen">
+            <div class="mockup-header">
+              <div class="mockup-dots" aria-hidden="true">
+                <span class="mockup-dot dot-red"></span>
+                <span class="mockup-dot dot-yellow"></span>
+                <span class="mockup-dot dot-green"></span>
+              </div>
+              <span class="mockup-title">yieldsage // forecast</span>
+            </div>
+            <div class="mockup-body">
+              <div class="mockup-line">
+                <span class="mockup-tag">this season</span>
+                <span class="mockup-val">Wheat · Kharif</span>
+                <span class="mockup-chip live"><span style="width:6px;height:6px;border-radius:50%;background:var(--green);display:inline-block;"></span>live</span>
+              </div>
+              <div class="mockup-line">
+                <span class="mockup-tag">predicted yield</span>
+                <span class="mockup-val green">5.8 t/ha</span>
+              </div>
+              <div class="mockup-line">
+                <span class="mockup-tag">confidence</span>
+                <span class="mockup-val amber">87%</span>
+              </div>
+              <div class="mockup-line">
+                <span class="mockup-tag">risk flag</span>
+                <span class="mockup-val">low</span>
+              </div>
+              <div class="grid-mini">
+                <div class="mini-tile"><span class="t-label">rainfall</span><span class="t-val up">▲ 940 mm</span></div>
+                <div class="mini-tile"><span class="t-label">temperature</span><span class="t-val">24 °C</span></div>
+                <div class="mini-tile"><span class="t-label">soil N-P-K</span><span class="t-val">72 /100</span></div>
+                <div class="mini-tile"><span class="t-label">farm size</span><span class="t-val">12 ha</span></div>
+              </div>
+            </div>
+            <div class="mockup-foot">
+              <span>ensemble · xgboost · rf · svr · mlp</span>
+              <span>api.yieldsage.dev/v1/predict</span>
+            </div>
+          </div>
+        </div>
+        <!-- Floating status callouts -->
+        <div class="status-callout callout-a">ok · 0.94 r²</div>
+        <div class="status-callout callout-b">online · api</div>
+        <div class="status-callout callout-c">warm · soil probe</div>
+        <div class="status-callout callout-d">new · model v2</div>
+        <!-- Decorative stars -->
+        <svg class="star-mark" style="top:14%;left:6%;width:22px;height:22px;" viewBox="0 0 24 24" fill="none" stroke="#11101B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+        <svg class="star-mark" style="top:62%;right:8%;width:16px;height:16px;" viewBox="0 0 24 24" fill="none" stroke="#11101B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+        <svg class="star-mark" style="bottom:18%;left:10%;width:12px;height:12px;opacity:0.6;" viewBox="0 0 24 24" fill="none" stroke="#11101B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== 2. Open-core foundation ============================== -->
+  <section class="section foundation" id="how-it-works">
+    <div class="wave top" style="background:var(--mint);clip-path:polygon(0 0,100% 40%,100% 100%,0 100%);"></div>
+    <div class="container section-inner">
+      <div class="grid">
+        <div class="text-col">
+          <p class="eyebrow">Open-core foundation</p>
+          <h2>
+            <span class="line">Everything beneath the forecast</span>
+            <span class="line">is yours to inspect.</span>
+          </h2>
+          <p class="lede">
+            YieldSage is built in the open so every transformation — from raw sensor
+            reading to yield number — is written down, versioned, and testable.
+          </p>
+          <ul class="checklist">
+            <li><span class="check">✓</span>Shared feature layer: training and serving cannot drift apart.</li>
+            <li><span class="check">✓</span>Deterministic preprocessing with pinned artifact schema.</li>
+            <li><span class="check">✓</span>MIT-licensed pipeline — fork it, run it, own it.</li>
+          </ul>
+          <a class="btn-secondary" href="#docs">Read the open core <span aria-hidden="true">▸</span></a>
+        </div>
+        <div class="art-col">
+          <div class="terminal-card">
+            <div class="terminal-head">
+              <div class="mockup-dots" aria-hidden="true">
+                <span class="mockup-dot dot-red"></span>
+                <span class="mockup-dot dot-yellow"></span>
+                <span class="mockup-dot dot-green"></span>
+              </div>
+              <span class="terminal-title">core // train_model.py</span>
+            </div>
+            <div class="terminal-body">
+              <div class="mockup-line"><span class="mockup-tag">model</span><span class="mockup-val">xgboost</span></div>
+              <div class="mockup-line"><span class="mockup-tag">split</span><span class="mockup-val">80 / 20 held-out</span></div>
+              <div class="mockup-line"><span class="mockup-tag">records</span><span class="mockup-val">4,000 synthetic</span></div>
+              <div class="metric-tiles">
+                <div class="metric-tile"><span class="t-label">r²</span><span class="t-val up">0.938</span></div>
+                <div class="metric-tile"><span class="t-label">mae</span><span class="t-val">0.045</span></div>
+                <div class="metric-tile"><span class="t-label">rmse</span><span class="t-val">0.056</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <blockquote class="quote">
+        <p>"The same feature code runs in training and in production. That's the whole
+        point — no silent drift between the notebook and the field."</p>
+        <cite>— YieldSage core team</cite>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- ============================== 3. CLI / processes ============================== -->
+  <section class="section processes" id="models">
+    <div class="container section-inner">
+      <p class="eyebrow">CLI · processes</p>
+      <h2 class="headline">
+        Run it from the terminal.<br />
+        Scale it from the portal.
+      </h2>
+      <p class="lede">
+        Predict yields, compare models, and export forecasts straight from the
+        command line — or let the portal handle it.
+      </p>
+      <div class="process-grid">
+        <article class="process-card">
+          <span class="p-icon" aria-hidden="true">⬢</span>
+          <span class="p-label">yieldsage predict</span>
+          <p class="p-desc">Forecast this season's yield from a single command with live model output.</p>
+          <span class="p-meta">cli · yield</span>
+        </article>
+        <article class="process-card">
+          <span class="p-icon" aria-hidden="true">⬡</span>
+          <span class="p-label">yieldsage compare</span>
+          <p class="p-desc">Benchmarks Random Forest, XGBoost, SVR and MLP side by side on your data.</p>
+          <span class="p-meta">cli · models</span>
+        </article>
+        <article class="process-card dark">
+          <span class="p-icon" aria-hidden="true">⬢</span>
+          <span class="p-label">yieldsage export</span>
+          <p class="p-desc">Dump forecasts to CSV/JSON for downstream farm-management tools.</p>
+          <span class="p-meta">cli · export</span>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== 4. Command center ============================== -->
+  <section class="section command" id="command-center">
+    <div class="wave top" style="background:var(--mint);clip-path:polygon(0 40%,100% 0,100% 100%,0 100%);"></div>
+    <div class="container section-inner">
+      <p class="eyebrow">Command center</p>
+      <h2 class="headline">
+        Four views of your operation
+      </h2>
+      <p class="lede">
+        One dashboard for fields, models, forecasts and alerts — each card carries
+        its own live status readout.
+      </p>
+      <div class="command-grid">
+        <div class="feature-card yellow">
+          <div class="accent"></div>
+          <div class="fc-head">
+            <span class="fc-mark" aria-hidden="true">🌾</span>
+            <span class="fc-label">Fields</span>
+          </div>
+          <p class="fc-desc">Monitor field conditions, soil moisture and crop stage across your farm in one view.</p>
+          <div class="fc-mini">
+            <div class="fc-row"><span class="k">active</span><span class="v up">3 fields</span></div>
+            <div class="fc-row"><span class="k">stage</span><span class="v">vegetative</span></div>
+            <div class="fc-row"><span class="k">moisture</span><span class="v warn">61 %</span></div>
+            <div class="fc-row"><span class="k">last</span><span class="v">2h ago</span></div>
+          </div>
+        </div>
+        <div class="feature-card orange">
+          <div class="accent"></div>
+          <div class="fc-head">
+            <span class="fc-mark" aria-hidden="true">🤖</span>
+            <span class="fc-label">Models</span>
+          </div>
+          <p class="fc-desc">Track training runs, model versions and leaderboard scores at a glance.</p>
+          <div class="fc-mini">
+            <div class="fc-row"><span class="k">leader</span><span class="v up">xgboost</span></div>
+            <div class="fc-row"><span class="k">runs</span><span class="v">12 this wk</span></div>
+            <div class="fc-row"><span class="k">best r²</span><span class="v">0.938</span></div>
+            <div class="fc-row"><span class="k">status</span><span class="v ok">ok</span></div>
+          </div>
+        </div>
+        <div class="feature-card lavender">
+          <div class="accent"></div>
+          <div class="fc-head">
+            <span class="fc-mark" aria-hidden="true">📊</span>
+            <span class="fc-label">Forecasts</span>
+          </div>
+          <p class="fc-desc">View active yield predictions, confidence bands and harvest windows.</p>
+          <div class="fc-mini">
+            <div class="fc-row"><span class="k">open</span><span class="v up">8 forecasts</span></div>
+            <div class="fc-row"><span class="k">avg conf.</span><span class="v">87 %</span></div>
+            <div class="fc-row"><span class="k">window</span><span class="v">sep–oct</span></div>
+            <div class="fc-row"><span class="k">risk</span><span class="v ok">low</span></div>
+          </div>
+        </div>
+        <div class="feature-card red">
+          <div class="accent"></div>
+          <div class="fc-head">
+            <span class="fc-mark" aria-hidden="true">⚠</span>
+            <span class="fc-label">Alerts</span>
+          </div>
+          <p class="fc-desc">Real-time flags for drought stress, nutrient gaps and off-season conditions.</p>
+          <div class="fc-mini">
+            <div class="fc-row"><span class="k">active</span><span class="v err">2 alerts</span></div>
+            <div class="fc-row"><span class="k">severity</span><span class="v warn">medium</span></div>
+            <div class="fc-row"><span class="k">ack'd</span><span class="v ok">1 / 2</span></div>
+            <div class="fc-row"><span class="k">next</span><span class="v">in 4h</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== 5. Cloud layer ============================== -->
+  <section class="section cloud">
+    <div class="container section-inner">
+      <p class="eyebrow">Cloud layer</p>
+      <h2 class="headline">
+        YieldSage Cloud
+      </h2>
+      <p class="lede">
+        The expanded product layer: team workspaces, model hosting, scheduled
+        predictions and API access for organizations that want yield intelligence
+        without managing infrastructure.
+      </p>
+    </div>
+  </section>
+
+  <!-- ============================== 6. Deployment sequence ============================== -->
+  <section class="section deploy" id="deployment">
+    <div class="container section-inner">
+      <p class="eyebrow">Deploy · operate</p>
+      <h2 class="headline">
+        Ship forecasts,<br />
+        watch the fields.
+      </h2>
+      <p class="lede">
+        Five operational workflows, each with a terminal-side illustration so you
+        can see exactly what happens under the hood.
+      </p>
+      <div class="deploy-rows">
+        <!-- Row 1: Deploy -->
+        <div class="deploy-row reveal" data-delay="0s">
+          <div class="row-text">
+            <span class="row-pill">01 · deploy</span>
+            <h3>Deploy a model endpoint</h3>
+            <p>Spin up a REST endpoint for any trained model in one command. HTTPS, versioned and ready for field apps.</p>
+            <ul class="benefits">
+              <li><span class="tick" aria-hidden="true">✓</span>One-command deploy</li>
+              <li><span class="tick" aria-hidden="true">✓</span>Versioned endpoints</li>
+              <li><span class="tick" aria-hidden="true">✓</span>Auto-scaling replica</li>
+            </ul>
+            <div class="alt-pills">
+              <span class="alt-pill">heroku</span>
+              <span class="alt-pill">aws sagemaker</span>
+              <span class="alt-pill">google vertex</span>
+            </div>
+          </div>
+          <div class="row-img">
+            <div class="frame">
+              <div class="frame-body">
+                <div class="term-line"><span class="term-tag">$</span><span class="term-val">yieldsage deploy xgb-v2</span></div>
+                <div class="term-line"><span class="term-tag">→</span><span class="term-val ok">endpoint live</span></div>
+                <div class="term-line"><span class="term-tag">→</span><span class="term-val ok">https://api.yieldsage.dev</span></div>
+                <div class="term-hint">edge · tls · auto-tls</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Row 2: Fleet (reverse) -->
+        <div class="deploy-row reverse reveal" data-delay="0.1s">
+          <div class="row-text">
+            <span class="row-pill">02 · fleet</span>
+            <h3>Manage your sensor fleet</h3>
+            <p>Register soil probes and weather stations, stream readings, and keep every device online.</p>
+            <ul class="benefits">
+              <li><span class="tick" aria-hidden="true">✓</span>Device provisioning</li>
+              <li><span class="tick" aria-hidden="true">✓</span>Live stream ingest</li>
+              <li><span class="tick" aria-hidden="true">✓</span>Offline buffering</li>
+            </ul>
+            <div class="alt-pills">
+              <span class="alt-pill">the things network</span>
+              <span class="alt-pill">aws iot core</span>
+              <span class="alt-pill">losant</span>
+            </div>
+          </div>
+          <div class="row-img reverse-wrap">
+            <div class="frame">
+              <div class="frame-body">
+                <div class="term-line"><span class="term-tag">$</span><span class="term-val">yieldsage fleet ls</span></div>
+                <div class="term-line"><span class="term-tag">→</span><span class="term-val ok">14 devices online</span></div>
+                <div class="term-line"><span class="term-tag">→</span><span class="term-val wrn">2 on battery</span></div>
+                <div class="term-hint">mqtt · heartbeat · provision</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Row 3: Alerts -->
+        <div class="deploy-row reveal" data-delay="0.2s">
+          <div class="row-text">
+            <span class="row-pill">03 · alerts</span>
+            <h3>Set yield &amp; risk alerts</h3>
+            <p>Get notified when forecast confidence drops or a risk threshold is crossed before it hits the field.</p>
+            <ul class="benefits">
+              <li><span class="tick" aria-hidden="true">✓</span>Threshold triggers</li>
+              <li><span class="tick" aria-hidden="true">✓</span>Telegram &amp; email</li>
+              <li><span class="tick" aria-hidden="true">✓</span>Escalation rules</li>
+            </ul>
+            <div class="alt-pills">
+              <span class="alt-pill">pagerduty</span>
+              <span class="alt-pill">opsgenie</span>
+              <span class="alt-pill">signl4</span>
+            </div>
+          </div>
+          <div class="row-img">
+            <div class="frame">
+              <div class="frame-body">
+                <div class="term-line"><span class="term-tag">!</span><span class="term-val err">confidence &lt; 60 %</span></div>
+                <div class="term-line"><span class="term-tag">→</span><span class="term-val">alert sent</span></div>
+                <div class="term-line"><span class="term-tag">→</span><span class="term-val ok">acknowledged</span></div>
+                <div class="term-hint">webhook · tg · escalation</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Row 4: Crash analysis (reverse) -->
+        <div class="deploy-row reverse reveal" data-delay="0.3s">
+          <div class="row-text">
+            <span class="row-pill">04 · crash analysis</span>
+            <h3>Investigate failed predictions</h3>
+            <p>Replay a failed inference, inspect input traces and compare against the last good run.</p>
+            <ul class="benefits">
+              <li><span class="tick" aria-hidden="true">✓</span>Trace replay</li>
+              <li><span class="tick" aria-hidden="true">✓</span>Input diffing</li>
+              <li><span class="tick" aria-hidden="true">✓</span>Run comparison</li>
+            </ul>
+            <div class="alt-pills">
+              <span class="alt-pill">datadog</span>
+              <span class="alt-pill">new relic</span>
+              <span class="alt-pill">honeycomb</span>
+            </div>
+          </div>
+          <div class="row-img reverse-wrap">
+            <div class="frame">
+              <div class="frame-body">
+                <div class="term-line"><span class="term-tag">!</span><span class="term-val err">inference failed</span></div>
+                <div class="term-line"><span class="term-tag">→</span><span class="term-val">trace #a1-9e</span></div>
+                <div class="term-line"><span class="term-tag">→</span><span class="term-val ok">diff vs run #a1-9d</span></div>
+                <div class="term-hint">replay · diff · compare</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Row 5: Scheduled jobs -->
+        <div class="deploy-row reveal" data-delay="0.4s">
+          <div class="row-text">
+            <span class="row-pill">05 · scheduled jobs</span>
+            <h3>Schedule forecast jobs</h3>
+            <p>Run nightly yield forecasts across all fields and land results directly in your dashboard.</p>
+            <ul class="benefits">
+              <li><span class="tick" aria-hidden="true">✓</span>Cron-style schedules</li>
+              <li><span class="tick" aria-hidden="true">✓</span>Multi-field batch</li>
+              <li><span class="tick" aria-hidden="true">✓</span>Dashboard writeback</li>
+            </ul>
+            <div class="alt-pills">
+              <span class="alt-pill">cron</span>
+              <span class="alt-pill">airflow</span>
+              <span class="alt-pill">prefect</span>
+            </div>
+          </div>
+          <div class="row-img">
+            <div class="frame">
+              <div class="frame-body">
+                <div class="term-line"><span class="term-tag">*</span><span class="term-val">0 2 * * *</span></div>
+                <div class="term-line"><span class="term-tag">→</span><span class="term-val ok">nightly batch ok</span></div>
+                <div class="term-line"><span class="term-tag">→</span><span class="term-val">12 fields written</span></div>
+                <div class="term-hint">cron · batch · writeback</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== 7. ChatOps / mobile ============================== -->
+  <section class="section chatops">
+    <div class="wave top" style="background:var(--mint);clip-path:polygon(0 0,100% 25%,100% 100%,0 100%);"></div>
+    <div class="container section-inner">
+      <div class="chatops-inner">
+        <div class="chat-copy">
+          <p class="eyebrow">ChatOps · mobile</p>
+          <h2 class="headline">
+            Forecasts where<br />
+            you already chat.
+          </h2>
+          <p class="lede">
+            Connect YieldSage to Telegram or Discord. Get yield alerts, run
+            predictions and check field status from your phone — no new app required.
+          </p>
+          <div class="chat-ctas">
+            <a class="chat-btn" href="#"><span class="icon" aria-hidden="true">💬</span>Add to Telegram</a>
+            <a class="chat-btn" href="#"><span class="icon" aria-hidden="true">🎮</span>Add to Discord</a>
+          </div>
+        </div>
+        <div class="phone-wrap">
+          <div class="phone-mock">
+            <div class="phone-screen">
+              <div class="phone-header">
+                <span class="phone-title">yieldsage bot</span>
+                <div class="phone-status" aria-hidden="true">
+                  <span class="mockup-dot dot-green"></span>
+                  <span class="mockup-dot dot-yellow"></span>
+                  <span class="mockup-dot dot-red"></span>
+                </div>
+              </div>
+              <div class="phone-bubble"><strong>YieldSage:</strong> Your wheat forecast is ready — 5.8 t/ha, 87% confidence.</div>
+              <div class="phone-bubble reply"><strong>You:</strong> Check the north field risk.</div>
+              <div class="phone-list">
+                <div class="phone-item new"><span class="dot"></span><span class="who">YieldSage</span><span class="txt">Risk alert: soil moisture below threshold on North Field.</span></div>
+                <div class="phone-item"><span class="dot"></span><span class="who">YieldSage</span><span class="txt">Daily forecast updated for Maize.</span></div>
+                <div class="phone-item"><span class="dot"></span><span class="who">YieldSage</span><span class="txt">Model v2 deployed successfully.</span></div>
+              </div>
+              <div class="phone-nav">
+                <div class="item active" aria-hidden="true">🌾</div>
+                <div class="item" aria-hidden="true">🤖</div>
+                <div class="item" aria-hidden="true">📊</div>
+              </div>
+            </div>
+          </div>
+          <a class="chat-dark-cta" href="#predict">Open in YieldSage <span aria-hidden="true">▸</span></a>
+          <!-- Decorative stars -->
+          <svg class="chat-star" style="top:8%;left:12%;width:14px;height:14px;opacity:0.7;" viewBox="0 0 24 24" fill="none" stroke="#11101B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          <svg class="chat-star" style="top:28%;right:14%;width:10px;height:10px;opacity:0.5;" viewBox="0 0 24 24" fill="none" stroke="#11101B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+          <svg class="chat-star" style="bottom:12%;left:6%;width:16px;height:16px;opacity:0.6;" viewBox="0 0 24 24" fill="none" stroke="#11101B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== 8. Pricing ============================== -->
+  <section class="section pricing" id="pricing">
+    <div class="container section-inner">
+      <p class="eyebrow">Simple, predictable pricing</p>
+      <h2 class="headline">
+        Plans for every farm size
+      </h2>
+      <p class="lede">
+        Start free, grow as your fields grow. All plans include the open core,
+        API access and forecast history.
+      </p>
+      <div class="toggle-wrap" role="radiogroup" aria-label="Billing interval">
+        <span class="meta">monthly</span>
+        <div class="toggle" id="billing-toggle" role="radio" aria-checked="false" aria-label="Monthly" tabindex="0">
+          <div class="toggle-thumb"></div>
+        </div>
+        <span class="meta toggle-label active" id="lbl-monthly">Monthly</span>
+        <span class="meta toggle-label" id="lbl-yearly">Yearly <span style="font-weight:600;color:var(--green-dark);">— save 20%</span></span>
+      </div>
+      <div class="pricing-grid" id="pricing-grid">
+        <!-- Starter -->
+        <article class="price-card" id="pc-starter">
+          <span class="pc-name">Starter</span>
+          <span class="pc-price"><span class="pc-currency">$</span>0<span class="pc-period">/mo</span></span>
+          <ul class="pc-features">
+            <li>1 active field</li>
+            <li>Forecast history: 30 days</li>
+            <li>Open API (rate limited)</li>
+            <li>Community support</li>
+          </ul>
+          <button class="pc-cta">Get started</button>
+        </article>
+        <!-- Grower (featured) -->
+        <article class="price-card featured" id="pc-grower">
+          <span class="price-badge">Most popular</span>
+          <span class="pc-name">Grower</span>
+          <span class="pc-price"><span class="pc-currency">$</span>19<span class="pc-period">/mo</span></span>
+          <ul class="pc-features">
+            <li>Up to 25 fields</li>
+            <li>Forecast history: 1 year</li>
+            <li>Open API (standard)</li>
+            <li>Telegram &amp; Discord bots</li>
+            <li>Email support</li>
+          </ul>
+          <button class="pc-cta">Start growing</button>
+        </article>
+        <!-- Farm -->
+        <article class="price-card" id="pc-farm">
+          <span class="pc-name">Farm</span>
+          <span class="pc-price"><span class="pc-currency">$</span>69<span class="pc-period">/mo</span></span>
+          <ul class="pc-features">
+            <li>Unlimited fields</li>
+            <li>Forecast history: unlimited</li>
+            <li>Open API (high volume)</li>
+            <li>Sensor fleet management</li>
+            <li>Priority support</li>
+          </ul>
+          <button class="pc-cta">Contact sales</button>
+        </article>
+        <!-- Enterprise -->
+        <article class="price-card" id="pc-enterprise">
+          <span class="pc-name">Enterprise</span>
+          <span class="pc-price">Custom<span class="pc-period">/mo</span></span>
+          <ul class="pc-features">
+            <li>Unlimited fields &amp; devices</li>
+            <li>Self-hosted option</li>
+            <li>SLA &amp; SSO</li>
+            <li>Dedicated onboarding</li>
+            <li>24/7 support</li>
+          </ul>
+          <button class="pc-cta">Contact sales</button>
+        </article>
+      </div>
+      <div class="enterprise">
+        <div class="et-text">
+          <span class="et-name">YieldSage Enterprise</span>
+          <p class="et-desc">On-premise deployment, custom model training, data residency and a dedicated account team for large agribusinesses and cooperatives.</p>
+          <span class="et-meta">SOC 2 · SSO · Data processing agreement</span>
+        </div>
+        <a class="et-cta" href="#contact">Talk to us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== 9. Social proof + FAQ ============================== -->
+  <section class="section social" id="social">
+    <div class="container section-inner">
+      <div class="social-head">
+        <div class="rating" aria-label="Rating">
+          ★ ★ ★ ★ ★
+          <span class="count">4.9 · 120+ reviews</span>
+        </div>
+        <h2 class="headline">
+          The wall of love
+        </h2>
+        <p class="lede">
+          Young farmers and hackathon teams growing better forecasts with YieldSage.
+        </p>
+      </div>
+      <div class="testimonials">
+        <article class="testimonial">
+          <div class="t-stars" aria-hidden="true">★★★★★</div>
+          <p class="t-body">"YieldSage turned our field logs into an actual forecast. The open code meant we could verify every number before trusting it."</p>
+          <div class="t-author">
+            <span class="t-avatar" aria-hidden="true">AM</span>
+            <span><span class="t-name">Amina Moyo</span><span class="t-role">Smallholder · Kenya</span></span>
+          </div>
+        </article>
+        <article class="testimonial">
+          <div class="t-stars" aria-hidden="true">★★★★★</div>
+          <p class="t-body">"We built a hackathon project around YieldSage in one weekend. The CLI made it trivial to pipe sensor data into predictions."</p>
+          <div class="t-author">
+            <span class="t-avatar" aria-hidden="true">RC</span>
+            <span><span class="t-name">Rohan Chen</span><span class="t-role">Hacker · SG</span></span>
+          </div>
+        </article>
+        <article class="testimonial">
+          <div class="t-stars" aria-hidden="true">★★★★☆</div>
+          <p class="t-body">"No black boxes. We see the features, the models and the error metrics. That's rare in agtech."</p>
+          <div class="t-author">
+            <span class="t-avatar" aria-hidden="true">LK</span>
+            <span><span class="t-name">Lena Kowalski</span><span class="t-role">Agronomist · PL</span></span>
+          </div>
+        </article>
+        <article class="testimonial">
+          <div class="t-stars" aria-hidden="true">★★★★★</div>
+          <p class="t-body">"The Telegram bot is brilliant — I get yield alerts while I'm still on the tractor."</p>
+          <div class="t-author">
+            <span class="t-avatar" aria-hidden="true">DK</span>
+            <span><span class="t-name">Diego Kruger</span><span class="t-role">Farm manager · ZA</span></span>
+          </div>
+        </article>
+        <article class="testimonial">
+          <div class="t-stars" aria-hidden="true">★★★★★</div>
+          <p class="t-body">"Compared four models side by side and picked the best for our district dataset. Reproducible from day one."</p>
+          <div class="t-author">
+            <span class="t-avatar" aria-hidden="true">PS</span>
+            <span><span class="t-name">Priya Shah</span><span class="t-role">Data scientist · IN</span></span>
+          </div>
+        </article>
+        <article class="testimonial">
+          <div class="t-stars" aria-hidden="true">★★★★☆</div>
+          <p class="t-body">"Exactly what a hackathon judge wants to see: real ML, open source, and a working forecast in minutes."</p>
+          <div class="t-author">
+            <span class="t-avatar" aria-hidden="true">JT</span>
+            <span><span class="t-name">Jamal Torres</span><span class="t-role">Student · US</span></span>
+          </div>
+        </article>
+      </div>
+      <div class="faq">
+        <h2 class="headline">Frequently asked questions</h2>
+        <div class="faq-grid">
+          <div class="faq-item">
+            <button class="faq-btn" aria-expanded="false" aria-controls="faq-1">
+              <span>How accurate are the forecasts?</span>
+              <span class="q-mark" aria-hidden="true">?</span>
+            </button>
+            <div class="faq-panel" id="faq-1">Up to R² 0.94 on held-out data across our compared models. Accuracy varies by crop, region and input quality — we show confidence with every prediction.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-btn" aria-expanded="false" aria-controls="faq-2">
+              <span>Is YieldSage open source?</span>
+              <span class="q-mark" aria-hidden="true">?</span>
+            </button>
+            <div class="faq-panel" id="faq-2">Yes. The core pipeline, feature layer and training code are MIT-licensed. You can fork, self-host and run it entirely on your own infrastructure.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-btn" aria-expanded="false" aria-controls="faq-3">
+              <span>Do I need to install anything?</span>
+              <span class="q-mark" aria-hidden="true">?</span>
+            </button>
+            <div class="faq-panel" id="faq-3">No. The portal runs in the browser. The CLI is optional for power users who want terminal-based prediction and export.</div>
+          </div>
+          <div class="faq-item">
+            <button class="faq-btn" aria-expanded="false" aria-controls="faq-4">
+              <span>Which crops are supported?</span>
+              <span class="q-mark" aria-hidden="true">?</span>
+            </button>
+            <div class="faq-panel" id="faq-4">Wheat, maize, rice and soybean out of the box, with a pluggable feature schema so you can add your own crops.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================== 10. Closing CTA + footer ============================== -->
+  <section class="section closing">
+    <div class="wave top" style="background:var(--mint);clip-path:polygon(0 60%,100% 0,100% 100%,0 100%);"></div>
+    <div class="container closing-inner">
+      <div class="counters" aria-label="Open-source stats">
+        <div class="counter">MIT<span class="c-label">license</span></div>
+        <div class="counter">12<span class="c-label">input features</span></div>
+        <div class="counter">4<span class="c-label">models compared</span></div>
+        <div class="counter">0.94<span class="c-label">best r²</span></div>
+      </div>
+      <div class="cta-final">
+        <h2 class="headline">
+          Ready to forecast your season?
+        </h2>
+        <p class="lede">
+          Join growers and hackathon teams using YieldSage to turn field data into
+          defensible yield predictions — open core, no black boxes.
+        </p>
+        <div class="cta-buttons">
+          <a class="btn-primary" href="#predict">Start free <span aria-hidden="true">▸</span></a>
+          <a class="btn-outline" href="#docs">Read the docs <span aria-hidden="true">▸</span></a>
+        </div>
+      </div>
+      <div class="onboarding">
+        <article class="onboard-card">
+          <span class="oc-icon" aria-hidden="true">🌱</span>
+          <span class="oc-name">First prediction</span>
+          <p class="oc-desc">Enter your field conditions and get a yield forecast in under a minute.</p>
+        </article>
+        <article class="onboard-card">
+          <span class="oc-icon" aria-hidden="true">🖥</span>
+          <span class="oc-name">Run the CLI</span>
+          <p class="oc-desc">Install yieldsage, train a model and export forecasts from your terminal.</p>
+        </article>
+        <article class="onboard-card">
+          <span class="oc-icon" aria-hidden="true">💬</span>
+          <span class="oc-name">Join the community</span>
+          <p class="oc-desc">Connect your Telegram or Discord and receive forecasts where you chat.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <span class="mark" style="color:inherit;"><span style="color:var(--mint);">🌱</span> YieldSage</span>
+        </div>
+        <p class="footer-desc">
+          ML-based crop yield prediction for young farmers and hackathon teams.
+          Open core, MIT licensed.
+        </p>
+        <div class="footer-col">
+          <h4>Product</h4>
+          <ul>
+            <li><a href="#how-it-works">How it works</a></li>
+            <li><a href="#models">CLI &amp; models</a></li>
+            <li><a href="#command-center">Command center</a></li>
+            <li><a href="#deployment">Workflows</a></li>
+            <li><a href="#pricing">Pricing</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Resources</h4>
+          <ul>
+            <li><a href="#docs">Docs</a></li>
+            <li><a href="#">API reference</a></li>
+            <li><a href="#">GitHub</a></li>
+            <li><a href="#">Changelog</a></li>
+            <li><a href="#">Status</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="#">About</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Contact</a></li>
+            <li><a href="#social">Testimonials</a></li>
+            <li><a href="#faq">FAQ</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Legal</h4>
+          <ul>
+            <li><a href="#">Privacy</a></li>
+            <li><a href="#">Terms</a></li>
+            <li><a href="#">License</a></li>
+            <li><a href="#">Data policy</a></li>
+            <li><a href="#">Accessibility</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-legal">
+        <ul class="legal-links">
+          <li><a href="#">Privacy</a></li>
+          <li><a href="#">Terms</a></li>
+          <li><a href="#">License</a></li>
+          <li><a href="#">Cookies</a></li>
+        </ul>
+        <span class="meta-row">YieldSage · 2026 · Open core</span>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    /* ========================================================================
+       YieldSage landing page behaviour
+       1. Reveal — scroll-triggered .reveal animation (honors data-delay)
+       2. FAQ    — inline accordion expansion
+       3. Pricing — monthly / yearly toggle swaps visible prices
+       ======================================================================== */
+    (() => {
+      'use strict';
+
+      const prefersReduced = () =>
+        window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      /* ---------- 1. Reveal ---------- */
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.12, rootMargin: '0px 0px -80px 0px' }
+      );
+
+      document.querySelectorAll('.reveal').forEach((el) => {
+        if (prefersReduced()) {
+          el.classList.add('is-visible');
+          return;
+        }
+        const delay = el.dataset.delay || '0s';
+        el.style.transitionDelay = delay;
+        observer.observe(el);
+      });
+
+      /* ---------- 2. FAQ accordion ---------- */
+      document.querySelectorAll('.faq-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const expanded = btn.getAttribute('aria-expanded') === 'true';
+          const panel = document.getElementById(btn.getAttribute('aria-controls'));
+          btn.setAttribute('aria-expanded', String(!expanded));
+          if (panel) {
+            panel.style.maxHeight = expanded ? '' : panel.scrollHeight + 'px';
+            panel.style.padding = expanded ? '' : '0 20px 18px';
+            panel.parentElement.classList.toggle('open', !expanded);
+          }
+        });
+        // Initialize max-height to 0 so CSS transition can measure scrollHeight
+        const panel = document.getElementById(btn.getAttribute('aria-controls'));
+        if (panel) {
+          panel.style.maxHeight = '0';
+          panel.style.overflow = 'hidden';
+          panel.style.transition = 'max-height 0.4s cubic-bezier(0.22,1,0.36,1), padding 0.4s cubic-bezier(0.22,1,0.36,1)';
+        }
+      });
+
+      /* ---------- 3. Pricing toggle ---------- */
+      const toggle = document.getElementById('billing-toggle');
+      const lblMonthly = document.getElementById('lbl-monthly');
+      const lblYearly = document.getElementById('lbl-yearly');
+      const yearlyPrices = {
+        'pc-grower': 15,
+        'pc-farm': 55
+      };
+
+      if (toggle) {
+        const setYearly = (yearly) => {
+          toggle.classList.toggle('active', yearly);
+          toggle.setAttribute('aria-checked', String(yearly));
+          lblMonthly.classList.toggle('active', !yearly);
+          lblYearly.classList.toggle('active', yearly);
+
+          document.querySelectorAll('.price-card').forEach((card) => {
+            const priceEl = card.querySelector('.pc-price');
+            if (!priceEl) return;
+            const id = card.id;
+            const currencyEl = priceEl.querySelector('.pc-currency');
+            const periodEl = priceEl.querySelector('.pc-period');
+            const mainNode = priceEl.childNodes[1]; // text node with the amount
+            if (!mainNode) return;
+
+            const current = parseFloat(mainNode.textContent.replace(/\D/g, ''));
+            if (isNaN(current)) return;
+
+            if (yearly && yearlyPrices[id]) {
+              mainNode.textContent = yearlyPrices[id];
+            } else if (!yearly && id === 'pc-grower') {
+              mainNode.textContent = '19';
+            } else if (!yearly && id === 'pc-farm') {
+              mainNode.textContent = '69';
+            }
+          });
+        };
+
+        toggle.addEventListener('click', () => setYearly(!toggle.classList.contains('active')));
+        toggle.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            setYearly(!toggle.classList.contains('active'));
+          }
+        });
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,78 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+    branches: [main, master]
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: Tests (Python ${{ matrix.python-version }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.10", "3.11", "3.12"]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+
+      - name: Run test suite (fallback engine)
+        run: pytest
+
+  train-and-test:
+    name: Train model and test inference
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements-dev.txt
+
+      - name: Train a small XGBoost model
+        run: python train_model.py --n-samples 1500 --models xgboost --output models/best_xgboost.pkl
+
+      - name: Run test suite against the trained model
+        run: pytest
+
+      - name: Smoke test the prediction endpoint
+        run: |
+          python - <<'PY'
+          from fastapi.testclient import TestClient
+          from app import app
+
+          client = TestClient(app)
+          payload = {
+              "rainfall": 950, "temperature": 24, "soil_npk": 72,
+              "irrigation_hours": 30, "farm_size_hectares": 50,
+              "crop": "wheat", "season": "kharif",
+          }
+          response = client.post("/predict", json=payload)
+          assert response.status_code == 200, response.text
+          body = response.json()
+          assert body["predicted_yield_tph"] > 0
+          assert body["model_used"] != "agronomic_fallback"
+          print("prediction:", body["predicted_yield_tph"], "t/ha via", body["model_used"])
+          PY
